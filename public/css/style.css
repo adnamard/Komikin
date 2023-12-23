@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Additional styling for form elements if needed */
+.form-title {
+    text-align: center;
+}
+.col {
+    
+    background-color: white;
+    border: 2px solid #ddd; /* Ketebalan border 2px dan warna abu-abu */
+    border-radius: 8px; /* Sudut border bulat */
+    padding: 20px;
+    width: 400px;
+}
