@@ -20,4 +20,13 @@ class UserModel extends Model
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
     protected $deletedField  = 'deleted_at';
+
+    public function getUser($username = false) #Jika ga ada parameter maka tampilakn semua dengan findall
+    {
+        if ($username == false) {
+            return $this->findAll();
+        }
+
+        return $this->where(['username' => $username])->first(); #kalau ada maka tampilakn array pertama
+    }
 }

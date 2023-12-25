@@ -2,10 +2,12 @@
 
 namespace App\Controllers;
 
+use App\Controllers\BaseController;
 use App\Models\KomikModel;
 
-class Home extends BaseController
+class Komik extends BaseController
 {
+
     protected $komikModel;
 
     public function __construct()

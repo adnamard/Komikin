@@ -22,4 +22,18 @@ $routes->get('/admin', 'Admin::index', ['filter' => 'auth']);
 $routes->get('Admin/', 'Admin::index');
 
 
+$routes->get('Admin/listkomik', 'Admin::listkomik');
+$routes->get('Admin/user', 'Admin::listuser');
+$routes->get('komik/(:segment)', 'Admin::detail/$1');
+$routes->get('komik/', 'Admin::listkomik');
+$routes->get('/Admin/create', 'Admin::create');
+$routes->post('/Admin/save', 'Admin::save');
+
+$routes->delete('admin/delete/(:num)', 'Admin::delete/$1');
+$routes->get('Admin/edit/(:segment)', 'Admin::edit/$1');
+
+$routes->post('/komik/update/(:segment)', 'Admin::update/$1');
+$routes->delete('/komik/(:num)', 'Komik::delete/$1');
+
+
 $routes->get('Auth/logout', 'Auth::logout');

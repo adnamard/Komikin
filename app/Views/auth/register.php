@@ -2,7 +2,7 @@
 
 <?= $this->section('content'); ?>
 <?= csrf_field(); ?>
-<div class="container">
+<div class="container-auth">
     <div class="row">
         <div class="col">
             <form action="/auth/register" method="post">
