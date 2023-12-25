@@ -2,7 +2,7 @@
 
 <?= $this->section('content'); ?>
 
-<div class="container">
+<div class="container-auth">
     <div class="row">
         <div class="col">
             <?= csrf_field(); ?>
