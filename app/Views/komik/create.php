@@ -80,7 +80,7 @@
                         <div class="mb-3">
                             <div class="custom-file">
                                 <label for="Sampul" class="form-label"></label>
-                                <input class="form-control <?= validation_show_error('harga') ? 'is-invalid' : ''; ?>" type="file" id="sampul" name="sampul">
+                                <input class="form-control <?= validation_show_error('sampul') ? 'is-invalid' : ''; ?>" type="file" id="sampul" name="sampul">
                                 <div id="validationServer03Feedback" class="invalid-feedback">
                                     <?= validation_show_error('sampul'); ?>
                                 </div>
