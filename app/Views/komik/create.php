@@ -44,7 +44,7 @@
                 <div class="row mb-3">
                     <label for="sinopsis" class="col-sm-2 col-form-label">Sinopsis</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control <?= validation_show_error('sinopsis') ? 'is-invalid' : ''; ?>" id="sinopsis" name="sinopsis" value="<?= old('sinopsis'); ?>">
+                        <textarea class="form-control <?= validation_show_error('sinopsis') ? 'is-invalid' : ''; ?>" id="sinopsis" name="sinopsis" rows="6"><?= old('sinopsis'); ?></textarea>
                         <div id="validationServer03Feedback" class="invalid-feedback">
                             <?= validation_show_error('sinopsis'); ?>
                         </div>
