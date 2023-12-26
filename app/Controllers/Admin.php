@@ -100,9 +100,9 @@ class Admin extends BaseController
                 ]
             ],
             'sampul' => [
-                'rules' => 'required',
+                'rules' => 'uploaded[sampul]',
                 'errors' => [
-                    'required' => '{field} komik harus diisi',
+                    'uploaded' => '{field} komik harus diunggah.',
                 ]
             ],
 
@@ -163,43 +163,78 @@ class Admin extends BaseController
 
     public function update($id)
     {
+
+
         //Cek judul, kalau judul dirubah maka cek is_unique, kalau judul tidak diubah maka tak perlu cek is_unique
+        // $komik = $this->komikModel->find($id); // Ambil data komik berdasarkan ID
 
-        $komikLama = $this->komikModel->getKomik($this->request->getVar('judul'));
-        if ($komikLama['judul'] == $this->request->getVar('judul')) {
-            $rule_judul = 'required';
-        } else {
-            $rule_judul = 'required|is_unique[komik.judul]';
-        }
-
-
+        // // Rules
+        // $rule_judul = 'required';
+        // if ($komik['judul'] != $this->request->getVar('judul')) {
+        //     $rule_judul .= '|is_unique[komik.judul]';
+        // }
+        //Validasi Input
         if (!$this->validate([
             'judul' => [
-                'rules' => $rule_judul,
+                'rules' => 'required',
                 'errors' => [
-                    'required' => '{field} komik harus diisi',
-                    'is_unique' => '{field} komik sudah terdaftar'
+                    'required' => '{field} komik harus diisi.',
+                    // 'is_unique' => '{field} komik sudah tersedia.'
                 ]
             ],
-            'sampul' => 'uploaded[sampul]'
-        ])) {
-            // $validation = \Config\Services::validation();
+            'penulis' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} komik harus diisi.',
+                ]
+            ],
+            'genre' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} komik harus diisi.',
+                ]
+            ],
+            'sinopsis' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} komik harus diisi.',
+                ]
+            ],
+            'stok' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} komik harus diisi.',
+                ]
+            ],
+            'harga' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} komik harus diisi.',
+                ]
+            ],
 
-            // return redirect()->to('komik/edit/' . $this->request->getVar('judul'))->withInput()->with('validation', $validation); //Save ngirim semua input, terus kirim validationnya, teru sdiambil di fucntion create Kita bakal redirect ke create page
-            return redirect()->to('Admin/edit/' . $this->request->getVar('judul'))->withInput();
+        ])) {
+            $validation = \Config\Services::validation()->listErrors();
+            return redirect()->to('Admin/edit/' . $this->request->getVar('judul'))->withInput()->with('validation', $validation);
         }
+
+
 
         $this->komikModel->save([
             'id' => $id,
             'judul' => $this->request->getVar('judul'),
             'penulis' => $this->request->getVar('penulis'),
-            'penerbit' => $this->request->getVar('penerbit'),
+            'genre' => $this->request->getVar('genre'),
+            'sinopsis' => $this->request->getVar('sinopsis'),
+            'stok' => $this->request->getVar('stok'),
+            'harga' => $this->request->getVar('harga'),
             'sampul' => $this->request->getVar('sampul'),
         ]);
 
-        session()->setFlashdata('pesan', 'Data berhasill diubah');
+
+        session()->setFlashdata('pesan', 'Data berhasill ditambahkan');
         //setelah berhasil kita kembaliin ke halaman index lagi
-        return redirect()->to('/komik');
+        return redirect()->to('Admin/listkomik');
     }
 
     public function delete($id)

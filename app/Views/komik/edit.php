@@ -7,15 +7,17 @@
             <h2 class="my-3">Form Ubah data Komik</h2>
             <!--Validation Flash data ditampilin, pake cara kayak daftar komik -->
 
-
-            <form action="/admin/update/ <?= $komik['id']; ?>" method="post">
+            <form action="/admin/update/<?= $komik['id']; ?>" method="post">
                 <?= csrf_field(); ?> <!-- Agar form tidak diinput dari mpihak ketiga -->
-                <input type="hidden" name="judul" value="<?= $komik['judul']; ?>">
+
+                <input type="hidden" name="slug" value="<?= $komik['judul']; ?>">
                 <div class="row mb-3">
                     <label for="judul" class="col-sm-2 col-form-label">Judul</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="judul" name="judul" autofocus value="<?= (old('judul')) ? old('judul') : $komik['judul']; ?>">
-
+                        <input type="text" class="form-control <?= validation_show_error('judul') ? 'is-invalid' : ''; ?>" id="judul" name="judul" autofocus value="<?= (old('judul')) ? old('judul') : $komik['judul']; ?>">
+                        <div id="validationServer03Feedback" class="invalid-feedback">
+                            <?= validation_show_error('judul'); ?>
+                        </div>
                     </div>
                 </div>
                 <div class="row mb-3">

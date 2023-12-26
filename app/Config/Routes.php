@@ -32,7 +32,7 @@ $routes->post('/Admin/save', 'Admin::save');
 $routes->delete('admin/delete/(:num)', 'Admin::delete/$1');
 $routes->get('Admin/edit/(:segment)', 'Admin::edit/$1');
 
-$routes->post('/komik/update/(:segment)', 'Admin::update/$1');
+$routes->post('admin/update/(:segment)', 'Admin::update/$1');
 $routes->delete('/komik/(:num)', 'Komik::delete/$1');
 
 
