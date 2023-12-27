@@ -1,6 +1,17 @@
 <?= $this->extend('layout/template'); ?>
 
 <?= $this->section('content'); ?>
+
+<?php if (session()->has('success')) : ?>
+    <div class="alert alert-success">
+        <?= session('success') ?>
+    </div>
+<?php elseif (session()->has('error')) : ?>
+    <div class="alert alert-danger">
+        <?= session('error') ?>
+    </div>
+<?php endif; ?>
+
 <div class="container mx-auto" style="margin-top: 225px;">
     <div class="row">
         <?php foreach ($komik as $k) : ?>
@@ -14,22 +25,22 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">Penulis: <?= $k['penulis']; ?></li>
                         <li class="list-group-item">Genre: <?= $k['genre']; ?></li>
-                        <li class="list-group-item">Stok: <?= $k['stok']; ?></li>
+
                         <li class="list-group-item">Harga: IDR. <?= $k['harga']; ?></li>
                     </ul>
                     <?php if (session()->has('userData')) : ?>
                         <div class="card-body">
-                            <a href="/booking" class="btn btn-outline-dark d-block mx-auto">Pinjam Komik</a>
+                            <a href="/checkout/add/<?= $k['id']; ?>" class="btn btn-outline-dark d-block mx-auto">Beli Komik</a>
                         </div>
                     <?php else : ?>
                         <div class="card-body">
-                            <button class="btn btn-outline-dark d-block mx-auto" onclick="showAlert()">Pinjam Komik</button>
+                            <button class="btn btn-outline-dark d-block mx-auto" onclick="showAlert()">Beli Komik</button>
                         </div>
                     <?php endif ?>
 
                     <script>
                         function showAlert() {
-                            alert('Maaf, anda harus login terlebih dahulu untuk meminjam komik.');
+                            alert('Maaf, anda harus login terlebih dahulu untuk membeli komik.');
                         }
                     </script>
                 </div>

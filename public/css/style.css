@@ -31,3 +31,14 @@ body{
     max-width: 320px;
     border-radius: 20px;
 }
+.container-client{
+    margin-top: 50px;
+    margin-bottom: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius:70px;
+}
+.row-client{background-color: rgba(255, 255, 255, 0.10)
+}
+

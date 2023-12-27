@@ -29,4 +29,9 @@ class UserModel extends Model
 
         return $this->where(['username' => $username])->first(); #kalau ada maka tampilakn array pertama
     }
+
+    public function getUserbyId($id)
+    {
+        return $this->find($id);
+    }
 }
