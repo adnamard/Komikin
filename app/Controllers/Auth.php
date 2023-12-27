@@ -12,10 +12,13 @@ class Auth extends BaseController
     protected $userModel;
     protected $helpers = ['form'];
 
+    protected $session;
+
 
     public function __construct()
     {
         $this->userModel = new UserModel();
+        $this->session = \Config\Services::session();
     }
 
     public function loginpage()
@@ -67,10 +70,11 @@ class Auth extends BaseController
 
                 // Contoh: Set session pengguna
                 $userData = [
+                    'id' => $user['id'],
                     'username' => $user['username'],
                     'email' => $user['email'],
                     'alamat' => $user['alamat'],
-                    'role' => $user['role']
+                    'role' => $user['role'],
                     // Tambahkan data lain jika diperlukan
                 ];
                 session()->set('userData', $userData);

@@ -7,7 +7,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="<?= base_url(); ?>">Home</a>
+                    <a class="nav-link active" aria-current="page" href="<?= base_url('Home/'); ?>">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">About Us</a>
@@ -16,7 +16,7 @@
             <?php if (session()->has('userData')) : ?>
                 <ul class="navbar-nav" style="margin-left: -3cm;">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Keranjang</a>
+                        <a class="nav-link" href="<?= base_url('Checkout/'); ?>">Keranjang</a>
                     </li>
                     <li class="nav-item dropdown ms-auto" style="padding-right: 3cm;">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
