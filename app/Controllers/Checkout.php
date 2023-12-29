@@ -5,19 +5,23 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\CheckoutModel;
 use App\Models\KomikModel;
+use App\Models\StatusPembelianModel;
 
 class Checkout extends BaseController
 {
 
     protected $modelCheckout;
     protected $modelKomik;
+    protected $modelStatusPembelian;
     protected $session;
+
 
     public function __construct()
     {
         $this->session = \Config\Services::session();
         $this->modelKomik = new KomikModel();
         $this->modelCheckout = new CheckoutModel();
+        $this->modelStatusPembelian = new StatusPembelianModel();
     }
 
     public function index()
@@ -44,7 +48,6 @@ class Checkout extends BaseController
             'user' => $userId,
             'totalHarga' => $totalHarga
         ];
-
         return view('client/checkout', $data);
     }
 
@@ -68,8 +71,8 @@ class Checkout extends BaseController
                 }
             }
             // Jika pengguna sudah memiliki 5 komik dalam keranjang, tampilkan pesan alert
-            if ($jumlahKomik >= 5) {
-                return redirect()->to(base_url('Home/'))->with('error', 'Eitss, Anda sudah memiliki 5 komik dalam keranjang, cek dulu yuk!');
+            if ($jumlahKomik >= 1) {
+                return redirect()->to(base_url('Home/'))->with('error', 'Eitss, Anda sudah memiliki 1 komik dalam keranjang, cek dulu yuk!');
             }
 
             // Jika tidak ada komik dalam keranjang, tambahkan komik yang dipilih ke keranjang
@@ -82,7 +85,7 @@ class Checkout extends BaseController
             $this->modelCheckout->insertCheckout($checkoutData);
 
             // Setelah menambahkan komik ke keranjang, tampilkan pesan alert bahwa produk berhasil ditambahkan
-            return redirect()->to(base_url('Home/'))->with('success', 'Komik berhasil ditambahkan ke checkout');
+            return redirect()->to(base_url('Home/'))->with('success', 'Komik berhasil ditambahkan ke keranjang');
         } else {
             // Jika pengguna belum login, arahkan ke halaman login
             return redirect()->to(base_url('Auth/loginpage'))->with('error', 'Silakan login terlebih dahulu');
@@ -92,8 +95,56 @@ class Checkout extends BaseController
 
     public function bayar()
     {
-    }
+        if ($this->session->has('userData')) {
+            $userID = $this->session->get('userData')['id'];
+            $username = $this->session->get('userData')['username'];
+            $checkout = $this->modelCheckout->getCheckoutByID($userID);
+            $bukti_pembayaran = $this->request->getFile('buktiPembayaran');
 
+
+            $bayarKeberapasiClient = $this->modelStatusPembelian
+                ->select('status_pembelian.*')
+                ->where('user_id', $userID)
+                ->orderBy('transaksi', 'DESC')
+                ->first();
+
+            $bayarKeberapa = 0;
+            if ($bayarKeberapasiClient == null) {
+                $bayarKeberapa = 1;
+            } else {
+                $bayarKeberapa = $bayarKeberapasiClient['transaksi'] + 1;
+            }
+
+
+            if ($bukti_pembayaran->isValid() && !$bukti_pembayaran->hasMoved()) {
+                $bukti = $bukti_pembayaran->getRandomName();
+                $bukti_pembayaran->move('img', $bukti);
+            }
+            // Mengambil informasi waktu sekarang
+            $dataPembelian = [];
+
+
+            foreach ($checkout as $item) {
+                $dataPembelian[] = [
+                    'komik_id' => $item['komik_id'],
+                    'user_id' => $userID,
+                    'jumlah' => $item['jumlah'],
+                    'status_id' => 1,
+                    'transaksi' => $bayarKeberapa,
+                    'bukti_pembayaran' => $bukti,
+                ];
+            }
+
+            // Simpan setiap data pembelian ke dalam tabel
+            foreach ($dataPembelian as $data) {
+                $this->modelStatusPembelian->insert($data);
+            }
+
+            $this->modelCheckout->where('user_id', $userID)->delete();
+            // var_dump($checkout);
+            return redirect()->to('/Home')->with('success', 'Pembayaran berhasil dilakukan. Silahkan Menunggu konfirmasi dari admin');
+        }
+    }
 
     public function delete($checkoutId)
     {

@@ -34,18 +34,14 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label for="genre" class="col-sm-2 col-form-label">Sinopsis</label>
+                    <label for="sinopsis" class="col-sm-2 col-form-label">Sinopsis</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control  " id="sinopsis" name="sinopsis" value="<?= (old('sinopsis')) ? old('sinopsis') : $komik['sinopsis']; ?>">
+                        <textarea class="form-control" id="sinopsis" name="sinopsis" rows="4"><?= (old('sinopsis')) ? old('sinopsis') : $komik['sinopsis']; ?></textarea>
                     </div>
                 </div>
 
-                <div class="row mb-3">
-                    <label for="genre" class="col-sm-2 col-form-label">Stok</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control " id="stok" name="stok" value="<?= (old('stok')) ? old('stok') : $komik['stok']; ?>">
-                    </div>
-                </div>
+
+
 
                 <div class="row mb-3">
                     <label for="genre" class="col-sm-2 col-form-label">Harga</label>

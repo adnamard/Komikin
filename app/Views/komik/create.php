@@ -52,16 +52,6 @@
                 </div>
 
 
-                <div class="row mb-3">
-                    <label for="stok" class="col-sm-2 col-form-label">Stok</label>
-                    <div class="col-sm-10">
-                        <input type="number" class="form-control <?= validation_show_error('stok') ? 'is-invalid' : ''; ?>" id="stok" name="stok" value="<?= old('stok'); ?>">
-                        <div id="validationServer03Feedback" class="invalid-feedback">
-                            <?= validation_show_error('stok'); ?>
-                        </div>
-                    </div>
-                </div>
-
 
                 <div class="row mb-3">
                     <label for="harga" class="col-sm-2 col-form-label">Harga</label>

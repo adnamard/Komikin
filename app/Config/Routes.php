@@ -40,6 +40,7 @@ $routes->get('/checkout/add/(:segment)', 'Checkout::add/$1');
 $routes->get('Checkout/', 'Checkout::index');
 $routes->get('add/(:num)', 'CCheckoutClient::addCheckout/$1');
 $routes->delete('Checkout/delete/(:num)', 'Checkout::delete/$1');
-
+$routes->post('Checkout/bayar', 'Checkout::bayar');
+$routes->get('DataCheckout/', 'DataCheckout::index');
 
 $routes->get('Auth/logout', 'Auth::logout');

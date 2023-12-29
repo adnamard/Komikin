@@ -18,7 +18,7 @@ class Komik extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'Daftar Komik',
+            'title' => 'Home | Komikin',
             'komik' => $this->komikModel->getKomik()
         ];
         return view('home', $data);

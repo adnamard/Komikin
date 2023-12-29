@@ -20,14 +20,14 @@
                 <div class="card mb-3" style="border-radius:50px;">
                     <div class="row g-0" style="width:650px">
                         <div class="col-md-4" style="width:auto;border-radius:70px;">
-                            <img src=" /img/<?= $c['sampul']; ?>" class="img-fluid" style="max-width: 200px; border-radius:50px;" alt="...">
+                            <img src="/img/<?= $c['sampul']; ?>" class=" img-fluid" style="max-width: 200px; border-radius:50px;" alt="...">
                         </div>
                         <div class="col-md-8" style="padding-left: 10px;">
                             <div class="card-body">
                                 <h5 class="card-title">Judul Komik : <?= $c['judul']; ?></h5>
                                 <p class="card-text">Harga Komik : <?= $c['harga']; ?></p>
                                 <!-- Informasi lainnya -->
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                <p class="card-text"><small class="text-muted">Last added 1 mins ago</small></p>
                                 <form action="<?= base_url('Checkout/delete/' . $c['id']); ?>" method="post" class="d-inline">
                                     <?= csrf_field(); ?>
                                     <input type="hidden" name="_method" value="DELETE">
@@ -53,7 +53,7 @@
 
 
             <!-- Button untuk memicu modal konfirmasi -->
-            <button class="btn btn-outline-dark d-block mx-auto" onclick="confirmPayment()">
+            <button class="btn btn-outline-dark d-block mx-auto" onclick="konfirmasiPembayaran()">
                 Bayar
             </button>
 
@@ -71,36 +71,74 @@
                             Yakin ingin melakukan pembayaran?
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-light" onclick="redirectCheckoutIndex()">Cek dulu</button>
+                            <button type="button" class="btn btn-light" onclick="pembayaranCekDulu()">Cek dulu</button>
 
-                            <button type="button" class="btn btn-dark" onclick="proceedToPayment()">Ya</button>
+                            <button type="button" class="btn btn-dark" onclick="pembayaranYa()">Ya</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div id="paymentSection" style="display:none;">
-                <!-- Isi untuk detail pembayaran -->
+            <div class="modal" id="paymentInfoModal" tabindex="-1" role="dialog" aria-labelledby="paymentInfoModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="paymentInfoModalLabel">Informasi Pembayaran</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <form action="/Checkout/bayar" method="post" enctype="multipart/form-data" id="paymentForm">
+                            <div class="modal-body">
+                                <!-- Isi informasi rekening di sini -->
+                                <p>Silakan transfer ke rekening AN. <b>Vellony Putri Cenia 15210291 BCA</b></p>
+                                <p>Jumlah yang harus dibayar: <?= $totalHarga; ?> -</p>
+                                <div class="form-group mb-3">
+                                    <label for="jumlahTransfer">Bukti Transfer (Jpg/Jpeg)</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fa fa-file"></i> <!-- Ganti "fa fa-file" dengan kelas ikon yang sesuai -->
+                                        </span>
+                                        <input type="file" class="form-control-file" id="buktiPembayaran" name="buktiPembayaran" required>
+                                    </div>
+                                </div>
+                                <!-- Ganti informasi di atas sesuai kebutuhan -->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-dark" onclick="pembayaranCekDulu()">Tutup</button>
+                                <button type="submit" class="btn btn-outline-dark">Kirim</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
 
             <script>
-                function confirmPayment() {
+                function konfirmasiPembayaran() {
                     // Tampilkan modal konfirmasi
                     $('#confirmationModal').modal('show');
                 }
 
-                function proceedToPayment() {
-                    // Sembunyikan modal konfirmasi
-                    $('#confirmationModal').modal('hide');
+                // function pembayaranYa() {
+                //     // Sembunyikan modal konfirmasi
+                //     $('#confirmationModal').modal('hide');
 
-                    // Tampilkan detail pembayaran
-                    $('#paymentSection').show();
+                //     // Tampilkan detail pembayaran
+                //     $('#paymentSection').show();
+                // }
+
+                function pembayaranCekDulu() {
+                    window.location.href = "<?php echo base_url('Checkout/'); ?>";
                 }
 
-                function redirectCheckoutIndex() {
-                    window.location.href = "<?php echo base_url('Checkout/'); ?>";
+                // Fungsi untuk mengeksekusi ketika tombol "Ya" pada modal konfirmasi diklik
+                function pembayaranYa() {
+                    $('#paymentInfoModal').modal('show');
                 }
             </script>
         </div>
     </div>
-    <?= $this->endSection(); ?>
+</div>
+
+<?= $this->endSection(); ?>
