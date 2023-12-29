@@ -87,12 +87,6 @@ class Admin extends BaseController
                     'required' => '{field} komik harus diisi',
                 ]
             ],
-            'stok' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => '{field} komik harus diisi',
-                ]
-            ],
             'harga' => [
                 'rules' => 'required',
                 'errors' => [
@@ -122,7 +116,6 @@ class Admin extends BaseController
                 'penulis' => $this->request->getVar('penulis'),
                 'genre' => $this->request->getVar('genre'),
                 'sinopsis' => $this->request->getVar('sinopsis'),
-                'stok' => $this->request->getVar('stok'),
                 'harga' => $this->request->getVar('harga'),
                 'sampul' => $newSampul,
             ]);
@@ -200,12 +193,6 @@ class Admin extends BaseController
                     'required' => '{field} komik harus diisi.',
                 ]
             ],
-            'stok' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => '{field} komik harus diisi.',
-                ]
-            ],
             'harga' => [
                 'rules' => 'required',
                 'errors' => [
@@ -219,14 +206,12 @@ class Admin extends BaseController
         }
 
 
-
         $this->komikModel->save([
             'id' => $id,
             'judul' => $this->request->getVar('judul'),
             'penulis' => $this->request->getVar('penulis'),
             'genre' => $this->request->getVar('genre'),
             'sinopsis' => $this->request->getVar('sinopsis'),
-            'stok' => $this->request->getVar('stok'),
             'harga' => $this->request->getVar('harga'),
             'sampul' => $this->request->getVar('sampul'),
         ]);

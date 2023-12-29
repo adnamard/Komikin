@@ -17,9 +17,8 @@ class Home extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'Daftar Komik',
+            'title' => 'Home | Komikin',
             'komik' => $this->komikModel->getKomik(),
-            'user' => $this->session->get('user'),
 
         ];
         return view('home', $data);

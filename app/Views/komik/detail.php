@@ -15,7 +15,6 @@
                             <h3 class="card-title"><?= $komik['judul']; ?></h3><!-- judul diambil dari tabel komik bagian judul-->
                             <p class="card-text"><b>Penulis : <?= $komik['penulis']; ?></b></p>
                             <p class="card-text"><b>Genre : <?= $komik['genre']; ?></b></p>
-                            <p class="card-text"><b>Stok : <?= $komik['stok']; ?></b></p>
                             <p class="card-text"><b>Harga : <?= $komik['harga']; ?></b></p><!-- penulis diambil dari tabel komik bagian penulis-->
                             <p class="card-text"><small class="text-body-secondary"><b>Sinopsis : <?= $komik['sinopsis']; ?></b></p><!-- penerbit diambil dari tabel komik bagian penerbit-->
 

@@ -23,7 +23,7 @@
                             Profile
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Riwayat Peminjaman</a></li>
+                            <li><a class="dropdown-item" href="<?= base_url('DataCheckout/'); ?>">Riwayat Peminjaman</a></li>
                             <li><a class="dropdown-item" href="<?= base_url('Auth/logout'); ?>">Logout</a></li>
                         </ul>
                     </li>
