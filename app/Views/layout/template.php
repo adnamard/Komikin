@@ -17,6 +17,8 @@
 
     <!-- My CSS -->
     <link rel="stylesheet" href="<?= base_url('/css/style.css'); ?>">
+
+    <script src="<?= base_url('/js/script.js'); ?>"></script>
     <title><?= $title; ?></title>
 </head>
 
