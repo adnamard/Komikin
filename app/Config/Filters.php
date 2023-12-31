@@ -71,7 +71,7 @@ class Filters extends BaseConfig
     public array $filters =  [
         'auth' => [
             'before' => [
-                'Auth/admin*', // Menentukan URL mana yang akan diterapkan filter ini
+                'Auth/admin*', '' // Menentukan URL mana yang akan diterapkan filter ini
             ],
         ],
     ];

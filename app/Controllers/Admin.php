@@ -5,11 +5,15 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\KomikModel;
 use App\Models\UserModel;
+use App\Models\CheckoutModel;
+use App\Models\StatusPembelianModel;
 
 class Admin extends BaseController
 {
     protected $komikModel;
     protected $userModel;
+    protected $checkoutModel;
+    protected $statusPembelianModel;
     protected $session;
     protected $validation;
 
@@ -17,6 +21,9 @@ class Admin extends BaseController
     {
         $this->komikModel  = new KomikModel();
         $this->userModel  = new UserModel();
+        $this->checkoutModel = new CheckoutModel();
+        $this->statusPembelianModel = new StatusPembelianModel();
+
         helper(['form']);
 
         $this->session = \Config\Services::session();
@@ -24,10 +31,29 @@ class Admin extends BaseController
 
     public function index()
     {
+        $userID = $this->session->get('userData');
         $data = [
-            'title' => 'Dashboard | Komikin'
+            'title' => 'Dashboard | Komikin',
+            'total_keranjang_client' => $this->checkoutModel->getCheckoutCountAllFindAll(),
+            'total_pembayaran_pending' => $this->statusPembelianModel->getStatusPembelianByIdCountAllResults(1),
+            'total_pembayaran_diterima' => $this->statusPembelianModel->getStatusPembelianByIdCountAllResults(2),
+            'total_pembayaran_ditolak' => $this->statusPembelianModel->getStatusPembelianByIdCountAllResults(3),
+            'user' => $userID,
         ];
-        return view('layout/templateadmin', $data);
+        // dd($data);
+        return view('admin/dashboard', $data);
+    }
+
+    public function profile()
+    {
+
+        $userID = $this->session->get('userData');
+        $data = [
+            'title' => 'Profile | Komikin',
+            'user' => $userID
+        ];
+
+        return view('admin/profile', $data);
     }
 
     public function listkomik()

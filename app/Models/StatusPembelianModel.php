@@ -22,7 +22,7 @@ class StatusPembelianModel extends Model
 
     public function getStatusPembelianByIdCountAllResults($id)
     {
-        return $this->select('status_pembelian.*, komik*, user.username, user.email, daftar_status.*, status_pembelian.id')
+        return $this->select('status_pembelian.*, komik.*, user.username, user.email, daftar_status.*, status_pembelian.id')
             ->join('user', 'user.id = status_pembelian.user_id')
             ->join('komik', 'komik.id = status_pembelian.komik_id')
             ->join('daftar_status', 'daftar_status.id = status_pembelian.status_id')
@@ -33,7 +33,7 @@ class StatusPembelianModel extends Model
 
     public function getStatusPembelianByIdFindAll($id)
     {
-        return $this->select('status_pembelian.*, komik*, user.username, user.email, daftar_status.*, status_pembelian.id')
+        return $this->select('status_pembelian.*, komik.*, user.username, user.email, daftar_status.*, status_pembelian.id')
             ->join('user', 'user.id = status_pembelian.user_id')
             ->join('komik', 'komik.id = status_pembelian.komik_id')
             ->join('daftar_status', 'daftar_status.id = status_pembelian.status_id')

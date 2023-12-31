@@ -13,7 +13,7 @@
 <div class="container-client">
     <div class="row-client">
         <div class="col" style="width:auto">
-            <h3 style="display: flex;justify-content: center;align-items: center;margin-bottom:3">Detail Pembelian</h3>
+            <h3 style="display: flex;justify-content: center;align-items: center;margin-bottom:3">Detail Transaksi</h3>
             <br></br>
 
             <?php foreach ($checkout as $c) : ?>
